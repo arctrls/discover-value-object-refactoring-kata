@@ -37,8 +37,8 @@ public class ProductJsonConverterMgr {
         data.put("optPrcText", DisplayUtil.getOptionPriceText(prd.get("optYn")));
         data.put("delInfo", setDelInfo(prd));
 
-        long originalPrice = CUtil.convertToLong(prd.get("selPrc"));
-        long discountedPrice = CUtil.convertToLong(prd.get("finalDscPrc"));
+        final long originalPrice = CUtil.convertToLong(prd.get("selPrc"));
+        final long discountedPrice = CUtil.convertToLong(prd.get("finalDscPrc"));
         long finalPrice = 0;
         if ((discountedPrice > 0) && (discountedPrice < originalPrice)) {
             data.put("finalPrc", CUtil.getCommaString(discountedPrice));
@@ -58,7 +58,7 @@ public class ProductJsonConverterMgr {
         data.put("minorSelCnYn", minorSelCnYn);
 
         // 할인율
-        int discountRate = DisplayUtil.getDiscountRate(originalPrice, finalPrice);
+        final int discountRate = DisplayUtil.getDiscountRate(originalPrice, finalPrice);
         if (discountRate >= 1) {
             data.put("discountRate", discountRate + "");
         } else {
