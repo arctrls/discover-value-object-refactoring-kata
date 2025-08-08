@@ -37,16 +37,16 @@ public class ProductJsonConverterMgr {
         data.put("optPrcText", DisplayUtil.getOptionPriceText(prd.get("optYn")));
         data.put("delInfo", setDelInfo(prd));
 
-        long lngSelPrc = CUtil.convertToLong(prd.get("selPrc"));
-        long lngFinalDscPrc = CUtil.convertToLong(prd.get("finalDscPrc"));
-        long finalPrc = 0;
-        if ((lngFinalDscPrc > 0) && (lngFinalDscPrc < lngSelPrc)) {
-            data.put("finalPrc", CUtil.getCommaString(lngFinalDscPrc));
-            data.put("selPrc", CUtil.getCommaString(lngSelPrc));
-            finalPrc = lngFinalDscPrc;
+        long originalPrice = CUtil.convertToLong(prd.get("selPrc"));
+        long discountedPrice = CUtil.convertToLong(prd.get("finalDscPrc"));
+        long finalPrice = 0;
+        if ((discountedPrice > 0) && (discountedPrice < originalPrice)) {
+            data.put("finalPrc", CUtil.getCommaString(discountedPrice));
+            data.put("selPrc", CUtil.getCommaString(originalPrice));
+            finalPrice = discountedPrice;
         } else {
-            data.put("finalPrc", CUtil.getCommaString(lngSelPrc));
-            finalPrc = lngSelPrc;
+            data.put("finalPrc", CUtil.getCommaString(originalPrice));
+            finalPrice = originalPrice;
         }
 
 
@@ -58,9 +58,9 @@ public class ProductJsonConverterMgr {
         data.put("minorSelCnYn", minorSelCnYn);
 
         // 할인율
-        int discount = DisplayUtil.getDiscountRate(lngSelPrc, finalPrc);
-        if (discount >= 1) {
-            data.put("discountRate", discount + "");
+        int discountRate = DisplayUtil.getDiscountRate(originalPrice, finalPrice);
+        if (discountRate >= 1) {
+            data.put("discountRate", discountRate + "");
         } else {
             data.put("discountRate", "");
         }
@@ -88,8 +88,8 @@ public class ProductJsonConverterMgr {
                 .contentNo(CUtil.convertToLong(prd.get("prdNo")))
                 .contentName(prd.get("prdNm"))
                 .contentType("PROD")
-                .productPrice(finalPrc + "")
-                .lastDiscountPrice(finalPrc + "")
+                .productPrice(finalPrice + "")
+                .lastDiscountPrice(finalPrice + "")
                 .directYn(directYn)
                 .build().toJsonStrng());
         return data;
