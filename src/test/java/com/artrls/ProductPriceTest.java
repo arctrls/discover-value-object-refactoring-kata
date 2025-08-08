@@ -17,7 +17,21 @@ class ProductPriceTest {
         );
     }
 
+    @Test
+    void finalPrice() {
+        assertAll(
+                () -> assertFinalPrice(1000L, 0L, 1000L),
+                () -> assertFinalPrice(1000L, 900L, 900L),
+                () -> assertFinalPrice(1000L, 1000L, 1000L),
+                () -> assertFinalPrice(1000L, 1100L, 1000L)
+        );
+    }
+
     private void assertIsDiscounted(final long originalPrice, final long discountedPrice, final boolean expected) {
         assertThat(new ProductPrice(originalPrice, discountedPrice).isDiscounted()).isEqualTo(expected);
+    }
+
+    private void assertFinalPrice(final long originalPrice, final long discountedPrice, final long expected) {
+        assertThat(new ProductPrice(originalPrice, discountedPrice).finalPrice()).isEqualTo(expected);
     }
 }
