@@ -8,4 +8,8 @@ public record ProductPrice(long originalPrice, long discountedPrice) {
     long finalPrice() {
         return isDiscounted() ? discountedPrice() : originalPrice();
     }
+
+    int discountRate() {
+        return ProductJsonConverterMgr.DisplayUtil.getDiscountRate(originalPrice(), finalPrice());
+    }
 }

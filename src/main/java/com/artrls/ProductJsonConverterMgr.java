@@ -58,7 +58,7 @@ public class ProductJsonConverterMgr {
         data.put("minorSelCnYn", minorSelCnYn);
 
         // 할인율
-        final int discountRate = discountRate(productPrice);
+        final int discountRate = productPrice.discountRate();
         if (discountRate >= 1) {
             data.put("discountRate", discountRate + "");
         } else {
@@ -93,10 +93,6 @@ public class ProductJsonConverterMgr {
                 .directYn(directYn)
                 .build().toJsonStrng());
         return data;
-    }
-
-    private int discountRate(final ProductPrice productPrice) {
-        return DisplayUtil.getDiscountRate(productPrice.originalPrice(), productPrice.finalPrice());
     }
 
     private String getDirectYn(final Cookie[] cookieArr) {
