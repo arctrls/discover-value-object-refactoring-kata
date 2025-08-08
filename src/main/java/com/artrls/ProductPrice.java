@@ -1,3 +1,7 @@
 package com.artrls;
 
-public record ProductPrice(long originalPrice, long discountedPrice) {}
+public record ProductPrice(long originalPrice, long discountedPrice) {
+    boolean isDiscounted() {
+        return (discountedPrice() > 0) && (discountedPrice() < originalPrice());
+    }
+}
