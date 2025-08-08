@@ -94,11 +94,7 @@ public class ProductJsonConverterMgr {
     }
 
     private long finalPrice(final long originalPrice, final long discountedPrice) {
-        if (isDiscounted(originalPrice, discountedPrice)) {
-            return discountedPrice;
-        } else {
-            return originalPrice;
-        }
+        return isDiscounted(originalPrice, discountedPrice) ? discountedPrice : originalPrice;
     }
 
     private boolean isDiscounted(final long originalPrice, final long discountedPrice) {
