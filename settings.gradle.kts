@@ -1,0 +1,1 @@
+rootProject.name = "discover-value-object-refactoring-kata"
