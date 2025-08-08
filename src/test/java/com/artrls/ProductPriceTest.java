@@ -10,10 +10,14 @@ class ProductPriceTest {
     @Test
     void isDiscounted() {
         assertAll(
-                () -> assertThat(new ProductPrice(1000L, 0L).isDiscounted()).isFalse(),
-                () -> assertThat(new ProductPrice(1000L, 900L).isDiscounted()).isTrue(),
-                () -> assertThat(new ProductPrice(1000L, 1000L).isDiscounted()).isFalse(),
-                () -> assertThat(new ProductPrice(1000L, 1100L).isDiscounted()).isFalse()
+                () -> assertIsDiscounted(1_000L, 0L, false),
+                () -> assertIsDiscounted(1_000L, 900L, true),
+                () -> assertIsDiscounted(1_000L, 1_000L, false),
+                () -> assertIsDiscounted(1_000L, 1_100L, false)
         );
+    }
+
+    private void assertIsDiscounted(final long originalPrice, final long discountedPrice, final boolean expected) {
+        assertThat(new ProductPrice(originalPrice, discountedPrice).isDiscounted()).isEqualTo(expected);
     }
 }
