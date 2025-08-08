@@ -10,6 +10,8 @@ public record ProductPrice(long originalPrice, long discountedPrice) {
     }
 
     int discountRate() {
-        return ProductJsonConverterMgr.DisplayUtil.getDiscountRate(originalPrice(), finalPrice());
+        final long selPrc = originalPrice();
+        final long finalDscPrc = finalPrice();
+        return (int) ((selPrc - finalDscPrc) * 100 / selPrc);
     }
 }

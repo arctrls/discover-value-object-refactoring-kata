@@ -140,9 +140,6 @@ public class ProductJsonConverterMgr {
             throw new UnsupportedOperationException("unimplemented");
         }
 
-        public static int getDiscountRate(final long selPrc, final long finalDscPrc) {
-            return (int) ((selPrc - finalDscPrc) * 100 / selPrc);
-        }
     }
 
     private static class CUtil {
