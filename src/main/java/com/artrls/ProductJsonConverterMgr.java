@@ -39,7 +39,7 @@ public class ProductJsonConverterMgr {
 
         final long originalPrice = CUtil.convertToLong(prd.get("selPrc"));
         final long discountedPrice = CUtil.convertToLong(prd.get("finalDscPrc"));
-        final long finalPrice = finalPrice(new ProductPrice(originalPrice, discountedPrice));
+        final long finalPrice = new ProductPrice(originalPrice, discountedPrice).finalPrice();
         if (new ProductPrice(originalPrice, discountedPrice).isDiscounted()) {
             data.put("finalPrc", CUtil.getCommaString(finalPrice));
             data.put("selPrc", CUtil.getCommaString(originalPrice));
@@ -91,10 +91,6 @@ public class ProductJsonConverterMgr {
                 .directYn(directYn)
                 .build().toJsonStrng());
         return data;
-    }
-
-    private long finalPrice(final ProductPrice productPrice) {
-        return productPrice.isDiscounted() ? productPrice.discountedPrice() : productPrice.originalPrice();
     }
 
     private String getDirectYn(final Cookie[] cookieArr) {
