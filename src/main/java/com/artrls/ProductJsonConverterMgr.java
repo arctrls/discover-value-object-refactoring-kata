@@ -39,8 +39,10 @@ public class ProductJsonConverterMgr {
 
         final long originalPrice = CUtil.convertToLong(prd.get("selPrc"));
         final long discountedPrice = CUtil.convertToLong(prd.get("finalDscPrc"));
-        final long finalPrice = new ProductPrice(originalPrice, discountedPrice).finalPrice();
-        if (new ProductPrice(originalPrice, discountedPrice).isDiscounted()) {
+        final ProductPrice productPrice = new ProductPrice(originalPrice, discountedPrice);
+
+        final long finalPrice = productPrice.finalPrice();
+        if (productPrice.isDiscounted()) {
             data.put("finalPrc", CUtil.getCommaString(finalPrice));
             data.put("selPrc", CUtil.getCommaString(originalPrice));
         } else {
