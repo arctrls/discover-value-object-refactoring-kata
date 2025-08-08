@@ -2,14 +2,14 @@ package com.artrls;
 
 public record ProductPrice(long originalPrice, long discountedPrice) {
     boolean isDiscounted() {
-        return (discountedPrice() > 0) && (discountedPrice() < originalPrice());
+        return (discountedPrice > 0) && (discountedPrice < originalPrice);
     }
 
     long finalPrice() {
-        return isDiscounted() ? discountedPrice() : originalPrice();
+        return isDiscounted() ? discountedPrice : originalPrice;
     }
 
     int discountRate() {
-        return (int) ((originalPrice() - finalPrice()) * 100 / originalPrice());
+        return (int) ((originalPrice - finalPrice()) * 100 / originalPrice);
     }
 }
