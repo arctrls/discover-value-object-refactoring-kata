@@ -94,7 +94,8 @@ public class ProductJsonConverterMgr {
     }
 
     private long finalPrice(final long originalPrice, final long discountedPrice) {
-        return new ProductPrice(originalPrice, discountedPrice).isDiscounted() ? discountedPrice : originalPrice;
+        final ProductPrice productPrice = new ProductPrice(originalPrice, discountedPrice);
+        return productPrice.isDiscounted() ? discountedPrice : originalPrice;
     }
 
     private String getDirectYn(final Cookie[] cookieArr) {
