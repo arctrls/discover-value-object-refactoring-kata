@@ -10,8 +10,6 @@ public record ProductPrice(long originalPrice, long discountedPrice) {
     }
 
     int discountRate() {
-        final long selPrc = originalPrice();
-        final long finalDscPrc = finalPrice();
-        return (int) ((selPrc - finalDscPrc) * 100 / selPrc);
+        return (int) ((originalPrice() - finalPrice()) * 100 / originalPrice());
     }
 }
